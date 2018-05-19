@@ -11,24 +11,24 @@ class ItemStatus(models.Model):
     status = models.CharField(max_length=255)
 
 
-class PledgeItem(models.Model):
+class PledgeGroup(models.Model):
+    # name = models.CharField(max_length=255)
+    users = models.ManyToManyField(User)
+
+
+class NeededItem(models.Model):
     name = models.CharField(max_length=255)
     status = models.ForeignKey(ItemStatus, on_delete=models.CASCADE)
     expires_on = models.DateTimeField()
     quantity = models.IntegerField(default=1)
-
-
-class PledgeGroup(models.Model):
-    name = models.CharField(max_length=255)
-    pledge = models.ForeignKey(PledgeItem, on_delete=models.CASCADE)
-    user = models.ManyToManyField(User, on_delete=models.CASCADE)
+    pledge_group = models.ForeignKey(PledgeGroup, on_delete=models.CASCADE)
 
 
 class Depot(models.Model):
     name = models.CharField(max_length=255)
     lat = models.FloatField()
     lon = models.FloatField()
-    items = models.ManyToManyField(PledgeGroup)
+    items = models.ManyToManyField(NeededItem)
 
 
 class UserProfile(models.Model):
