@@ -1,5 +1,5 @@
-### https://raw.github.com/github/gitignore/766e2a1f6276219fed1f18f11508261adbcb8257/Python.gitignore
-
+# Created by .ignore support plugin (hsz.mobi)
+### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -106,3 +106,9 @@ venv.bak/
 .mypy_cache/
 
 
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+.idea
