@@ -2,6 +2,8 @@ from logging import getLogger
 from math import sin, cos, atan2, sqrt
 
 from django.contrib.auth.models import User
+from django.contrib.gis.db import models as geomodels
+from django.contrib.gis.geos import Point
 from django.db import models
 
 logger = getLogger()
@@ -22,23 +24,28 @@ def get_distance(lat1, lon1, lat2, lon2):
     return R * c
 
 
-class PledgeGroup(models.Model):
+class Pledge(models.Model):
     """
     Ex: Many users contribute to the total need of 100 rolls
     """
     users = models.ManyToManyField(User)
+    quantity = models.IntegerField(default=1)
 
 
-class NeededItem(models.Model):
+class Item(models.Model):
+    name = models.CharField(max_length=255)
+    cost = models.DecimalField(decimal_places=2)
+    image = models.ImageField()
+
+
+class Need(models.Model):
     """
     Ex: Nationwide Depot needs 100 rolls of toilet paper
     """
-    name = models.CharField(max_length=255)
+    item = models.ForeignKey(Item, on_delete=models.DO_NOTHING)
     is_fulfilled = models.BooleanField(default=False)
-    expires_on = models.DateTimeField()
     quantity = models.IntegerField(default=1)
-    value_per_unit = models.FloatField(default=0.00)
-    pledge_group = models.ForeignKey(PledgeGroup, on_delete=models.DO_NOTHING)
+    pledges = models.ManyToManyField(Pledge, on_delete=models.DO_NOTHING)
 
 
 class Depot(models.Model):
@@ -46,9 +53,14 @@ class Depot(models.Model):
     Nationwide is on your side.
     """
     name = models.CharField(max_length=255)
-    lat = models.FloatField()
-    lon = models.FloatField()
-    items = models.ManyToManyField(NeededItem)
+    location = geomodels.PointField()
+    items = models.ManyToManyField(Need)
+
+    def get_pledges(self):
+        pass
+
+    def get_needed_items(self):
+        pass
 
 
 class UserProfile(models.Model):
@@ -57,40 +69,36 @@ class UserProfile(models.Model):
     A user might have 12 rolls... that contributes to the PledgeGroup.
     """
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    lat = models.FloatField()
-    lon = models.FloatField()
+    location = geomodels.PointField()
     home_depot = models.ForeignKey(Depot, on_delete=models.DO_NOTHING)
+
+    def __init__(self, lat=None, lon=None, *args, **kwargs):
+        if lat and lon:
+            self.location = Point(lat, lon)
+        super().__init__(*args, **kwargs)
 
     def get_closest_depot(self):
         """
-        Call to google maps api
-        :return:
+        :return: Depot model
         """
-        distances = {}
-        depots = Depot.objects.all()
+        # Only 1 depot for the demo.
+        # distances = {}
+        # depots = Depot.objects.all()
+        #
+        # for depot in depots:
+        #     distances[depot.id] = get_distance(self.lat, self.lon, depot.lat, depot.lon)
+        #
+        #     logger.debug(
+        #         f'lat/lon user:{self.lat},{self.lon} | '
+        #         f'depot{depot.id}:{depot.lat},{depot.lon} | '
+        #         f'dist={distances[depot.id]}km')
+        #
+        # depot_id = min(distances, key=distances.get)
+        # closest_depot = Depot.objects.get(pk=depot_id)
 
-        for depot in depots:
-            distances[depot.id] = get_distance(self.lat, self.lon, depot.lat, depot.lon)
-
-            logger.debug(
-                f'lat/lon user:{self.lat},{self.lon} | '
-                f'depot{depot.id}:{depot.lat},{depot.lon} | '
-                f'dist={distances[depot.id]}km')
-
-        depot_id = min(distances, key=distances.get)
-        closest_depot = Depot.objects.get(pk=depot_id)
-        return {
-            'name': closest_depot.name,
-            'lat': closest_depot.lat,
-            'lon': closest_depot.lon,
-        }
+        closest_depot = Depot.objects.all()[0]
+        return closest_depot
 
     def get_closest_needed_items(self, count=10):
-        return [{
-            'name': '',
-            'image_url': '',
-            'quantity': '',
-            'lat': '',
-            'lon': '',
-            'distance': '',
-        }]
+        items = Item.objects.all()
+        return items
