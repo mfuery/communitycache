@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import * as r from 'ramda';
 import moment from 'moment';
+import App from "./App.jsx";
 
-// import '../sass/main.scss';
+import '../sass/main.scss';
 
 let csrftoken = csrfToken();
 
@@ -37,14 +38,8 @@ $.ajaxSetup({
   }
 });
 
-class MyComponent extends Component {
-  render() {
-    return <div>Hi!! Ma</div>
-  }
-}
-
 render(
-  <MyComponent />,
+  <App/>,
   document.getElementById("app")
 );
 
