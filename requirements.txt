@@ -4,6 +4,7 @@ botocore==1.10.24
 cement==2.8.2
 colorama==0.3.7
 Django==2.0.5
+djangorestframework==3.8.2
 docker==2.6.1
 docker-pycreds==0.2.3
 dockerpty==0.4.1
