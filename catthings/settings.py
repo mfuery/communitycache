@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'core',
     'webpack_loader',
     'rest_framework'
->>>>>>> bb3c8b1bee2627ee425f82f69d51b4dfa2fb443d
 ]
 
 MIDDLEWARE = [
