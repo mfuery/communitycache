@@ -16,8 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
+from rest_framework import routers
+
+from api.views import DepotViewSet, ItemViewSet, PledgeViewSet
+
+router = routers.SimpleRouter()
+
+router.register(r'depots', DepotViewSet)
+router.register(r'items', ItemViewSet)
+router.register(r'pledges', PledgeViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='base.html')),
 ]
+
+urlpatterns += router.urls
