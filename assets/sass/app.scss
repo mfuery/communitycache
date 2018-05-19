@@ -6,15 +6,17 @@
 }
 
 .App-header {
-  background-color: #EB5757;
-  height: 60px;
+  background-color: #1457a5;
+  height: 45px;
   padding: 20px;
   color: white;
+  display: flex;
+  .App-title {
+    font-size: 1.5em;
+    align-items: center;
+  }
 }
 
-.App-title {
-  font-size: 1.5em;
-}
 
 .App-intro {
   font-size: large;

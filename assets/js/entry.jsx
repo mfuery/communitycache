@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import * as r from 'ramda';
 import moment from 'moment';
 import App from "./App.jsx";
+import { BrowserRouter } from 'react-router-dom'
 
 import '../sass/main.scss';
 
@@ -39,7 +40,9 @@ $.ajaxSetup({
 });
 
 render(
-  <App/>,
+  <BrowserRouter>
+    <App/>
+  </BrowserRouter>,
   document.getElementById("app")
 );
 
