@@ -1,5 +1,3 @@
-### https://raw.github.com/github/gitignore/766e2a1f6276219fed1f18f11508261adbcb8257/Python.gitignore
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
