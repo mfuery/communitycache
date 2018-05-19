@@ -37,6 +37,7 @@
     "ramda": "^0.25.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-modal": "^3.4.4",
     "react-render-html": "^0.6.0"
   }
 }
