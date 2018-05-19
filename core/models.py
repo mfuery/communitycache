@@ -2,8 +2,6 @@ from logging import getLogger
 from math import sin, cos, atan2, sqrt
 
 from django.contrib.auth.models import User
-from django.contrib.gis.db import models as geomodels
-from django.contrib.gis.geos import Point
 from django.db import models
 
 logger = getLogger()
@@ -26,16 +24,34 @@ def get_distance(lat1, lon1, lat2, lon2):
 
 class Pledge(models.Model):
     """
-    Ex: Many users contribute to the total need of 100 rolls
+    M:M Users<->Needs
     """
-    users = models.ManyToManyField(User)
     quantity = models.IntegerField(default=1)
 
 
 class Item(models.Model):
+    """
+    Ex: a roll of toilet paper
+    """
     name = models.CharField(max_length=255)
-    cost = models.DecimalField(decimal_places=2)
+    cost = models.DecimalField(max_digits=9, decimal_places=2)
     image = models.ImageField()
+
+
+class Depot(models.Model):
+    """
+    Nationwide is on your side.
+    """
+    name = models.CharField(max_length=255)
+    # location = geomodels.PointField()
+    lat = models.DecimalField(max_digits=9, decimal_places=6)
+    lon = models.DecimalField(max_digits=9, decimal_places=6)
+
+    def get_pledges(self):
+        pass
+
+    def get_needed_items(self):
+        pass
 
 
 class Need(models.Model):
@@ -45,37 +61,20 @@ class Need(models.Model):
     item = models.ForeignKey(Item, on_delete=models.DO_NOTHING)
     is_fulfilled = models.BooleanField(default=False)
     quantity = models.IntegerField(default=1)
-    pledges = models.ManyToManyField(Pledge, on_delete=models.DO_NOTHING)
-
-
-class Depot(models.Model):
-    """
-    Nationwide is on your side.
-    """
-    name = models.CharField(max_length=255)
-    location = geomodels.PointField()
-    items = models.ManyToManyField(Need)
-
-    def get_pledges(self):
-        pass
-
-    def get_needed_items(self):
-        pass
+    pledges = models.ManyToManyField(Pledge)
+    depot = models.ForeignKey(Depot, on_delete=models.DO_NOTHING)
 
 
 class UserProfile(models.Model):
     """
-    User's lat/lon defines where the NeededItems are. (The user is carrying them)
-    A user might have 12 rolls... that contributes to the PledgeGroup.
+    User's location defines where the needed items are. (The user is carrying them)
+    A user might have 12 rolls... that creates a new Pledge.
     """
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    location = geomodels.PointField()
-    home_depot = models.ForeignKey(Depot, on_delete=models.DO_NOTHING)
-
-    def __init__(self, lat=None, lon=None, *args, **kwargs):
-        if lat and lon:
-            self.location = Point(lat, lon)
-        super().__init__(*args, **kwargs)
+    # location = geomodels.PointField()
+    lat = models.DecimalField(max_digits=9, decimal_places=6)
+    lon = models.DecimalField(max_digits=9, decimal_places=6)
+    pledges = models.ManyToManyField(Pledge)
 
     def get_closest_depot(self):
         """
