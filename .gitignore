@@ -112,3 +112,4 @@ venv.bak/
 .idea
 .DS_Store
 node_modules
+static/
