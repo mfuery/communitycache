@@ -18,12 +18,22 @@
   }
 },
 {
+  "model": "core.item",
+  "pk": 3,
+  "fields": {
+    "name": "Toilet Paper (12-pack)",
+    "cost": "15.00",
+    "image": "toiletpapel.jpg"
+  }
+},
+{
   "model": "core.depot",
   "pk": 1,
   "fields": {
     "name": "Plug and Play Sunnyvale",
     "lat": "37.371065",
-    "lon": "-122.026808"
+    "lon": "-122.026808",
+    "address": "123 Main St Sunnyvale, CA"
   }
 },
 {
@@ -32,7 +42,8 @@
   "fields": {
     "name": "Target",
     "lat": "37.378979",
-    "lon": "-122.045146"
+    "lon": "-122.045146",
+    "address": "123 Main St Sunnyvale, CA"
   }
 },
 {
@@ -41,7 +52,8 @@
   "fields": {
     "name": "Sunnyvale Preschool",
     "lat": "37.377750",
-    "lon": "-122.048330"
+    "lon": "-122.048330",
+    "address": "123 Main St Sunnyvale, CA"
   }
 },
 {
@@ -51,7 +63,8 @@
     "item": 1,
     "is_fulfilled": false,
     "quantity": 50,
-    "depot": 1
+    "depot": 1,
+    "description": "Earthquake response 2018"
   }
 },
 {
@@ -61,7 +74,8 @@
     "item": 2,
     "is_fulfilled": false,
     "quantity": 100,
-    "depot": 1
+    "depot": 1,
+    "description": "Earthquake response 2018"
   }
 }
 ]

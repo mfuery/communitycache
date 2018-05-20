@@ -53,6 +53,7 @@ class Depot(models.Model):
     name = models.CharField(max_length=255)
     lat = models.DecimalField(max_digits=9, decimal_places=6)
     lon = models.DecimalField(max_digits=9, decimal_places=6)
+    address = models.TextField(max_length=140)
 
     def get_pledges(self):
         pledges = Pledge.objects.filter(
@@ -80,6 +81,7 @@ class Need(models.Model):
     is_fulfilled = models.BooleanField(default=False)
     quantity = models.IntegerField(default=1)
     depot = models.ForeignKey(Depot, on_delete=models.DO_NOTHING)
+    description = models.TextField(max_length=140)
 
     @property
     def quantity_fulfilled_so_far(self):
