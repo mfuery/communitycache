@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Card, CardHeader, CardText} from "material-ui/Card/index";
 import {RefreshIndicator} from "material-ui";
 import LinearProgressDeterminate from "./progress.jsx";
+import moment from "moment";
 
 
 export default class FulfilledView extends Component {
@@ -23,7 +24,7 @@ export default class FulfilledView extends Component {
         return (<Card key={x.name} containerStyle={{paddingLeft: 5, paddingRight: 5, marginBottom: 10}}>
           <CardHeader
             title={x.item.name}
-            subtitle={`${x.quantity_fulfilled_so_far}/${x.quantity} units fulfilled`}
+            subtitle={`${x.quantity_fulfilled_so_far}/${x.quantity} units fulfilled on ${moment(x.fulfilled_at).format('MM/DD/YYYY')}`}
             avatar={x.item.image}>
           </CardHeader>
           <CardText>{x.description}</CardText>

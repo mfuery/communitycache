@@ -46,11 +46,6 @@ const muiTheme = getMuiTheme({
     primary1Color: "#1457a5",
     primary2Color: "#a5009d",
   },
-  appBar: {
-    shadows: ['none']
-  },
-  card: {
-  }
 });
 
 render(
