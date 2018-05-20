@@ -16,7 +16,7 @@ export default class App extends Component {
       <div className="App">
         <AppBar title={"Cat Stuff"} zDepth={0}/>
         <Tabs>
-          <Tab label="Pledged" containerElement={<Link to={'/'}/>} />
+          <Tab label="Pledge" containerElement={<Link to={'/'}/>} />
           <Tab label="Needed" containerElement={<Link to={'/needed'}/>} />
           <Tab label="Fulfilled" containerElement={<Link to={'/fulfilled'}/>} />
         </Tabs>
