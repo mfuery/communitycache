@@ -1,41 +1,36 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import {RaisedButton} from "material-ui";
+import {customStyles} from "./styles.js";
 
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
+
+function postData(url, data) {
+  // Default options are marked with *
+  return fetch(url, {
+    body: JSON.stringify(data), // must match 'Content-Type' header
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, same-origin, *omit
+    headers: {
+      'user-agent': 'Mozilla/4.0 MDN Example',
+      'content-type': 'application/json'
+    },
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, cors, *same-origin
+    redirect: 'follow', // manual, *follow, error
+    referrer: 'no-referrer', // *client, no-referrer
+  })
+  .then(response => response.json()) // parses response to JSON
+}
 
 export default class PledgeView extends Component {
   constructor(props) {
     super();
     this.state = {
       currentItem: null,
-      list: [
-        {
-          name: 'Rubix Cube',
-          quantity: 10,
-          image: 'https://4vector.com/i/free-vector-rubik-s-cube-random-clip-art_106251_Rubiks_Cube_Random_clip_art_medium.png'
-        },
-        {
-          name: 'Toilet Paper',
-          quantity: 10,
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Toiletpapier_%28Gobran111%29.jpg/1200px-Toiletpapier_%28Gobran111%29.jpg'
-        },
-        {
-          name: 'Spam',
-          quantity: 10,
-          image: 'https://thumbs-prod.si-cdn.com/CjIhFJJGItoI-h00PsYpINkhabU=/800x600/filters:no_upscale()/https://public-media.smithsonianmag.com/filer/a3/a5/a3a5e93c-0fd2-4ee7-b2ec-04616b1727d1/kq4q5h7f-1498751693.jpg'
-        },
-      ]
+      list: [],
     };
     this.state.currentIndex = 0;
+    this.state.quantity = 0;
     this.state.currentItem = this.state.list[this.state.currentIndex];
     this.state.acceptedItems = [];
     this.state.rejectedItems = [];
@@ -45,6 +40,26 @@ export default class PledgeView extends Component {
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+  }
+  componentDidMount() {
+    fetch('/api/needs')
+      .then(res => {
+        return res.json();
+      })
+      .then(res => {
+        let list = res;
+        if (list.length > 0) {
+          this.setState({items: list});
+          this.setState({
+            currentIndex: 0,
+            currentItem: list[0],
+            list: res,
+          });
+        }
+      })
+  }
+  handleChange(event) {
+    this.setState({quantity: event.target.value});
   }
   openModal() {
     this.setState({modalIsOpen: true});
@@ -71,6 +86,16 @@ export default class PledgeView extends Component {
     this.getNextItem();
   }
   approveAction() {
+    let needId = this.state.currentItem.id;
+    postData('/api/pledges/', {
+      need: needId,
+      user_profile: 1,
+      quantity: this.state.quantity
+    }).then(res => {
+      console.log(res);
+      // return res;
+      return;
+    });
     this.closeModal();
     this.getNextItem();
   }
@@ -79,24 +104,35 @@ export default class PledgeView extends Component {
       modalIsOpen: true
     });
   }
+  renderItem() {
+    if (this.state.list.length > 0) {
+      return (
+        <Item
+          item={this.state.currentItem}
+          approveAction={this.approveAction.bind(this)}
+          approveForm={this.approveForm.bind(this)}
+          rejectAction={this.rejectAction.bind(this)}
+        />
+      )
+    } else {
+      return (<div>Loading...</div>);
+    }
+  }
   render () {
     return (
       <div className={"pledge-container"}>
-        <Item
-          item={this.state.currentItem}
-          approveAction={this.approveForm.bind(this)}
-          rejectAction={this.rejectAction.bind(this)}
-        />
+        {this.renderItem()}
         <Modal
-          isOpen={this.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={this.afterOpenModal.bind(this)}
+          onRequestClose={this.closeModal.bind(this)}
           style={customStyles}
           contentLabel="Example Modal"
         >
-          <button onClick={this.closeModal}>close</button>
+          <button onClick={this.closeModal.bind(this)}>close</button>
           <ItemForm
             approveAction={this.approveAction.bind(this)}
+            handleChange={this.handleChange.bind(this)}
           />
         </Modal>
     </div>);
@@ -106,11 +142,14 @@ export default class PledgeView extends Component {
 class Item extends Component {
   render() {
     return (<div>
-      <Image src={this.props.item.image}/>
+      <Image src={this.props.item.item.image}/>
+      <h3>{this.props.item.item.name}</h3>
       <div>Quantity Needed: {this.props.item.quantity}</div>
+      <div className={"bottom-nav"}>
       <div className={"item-buttons-container"}>
-        <button onClick={this.props.rejectAction}>Reject</button>
-        <button onClick={this.props.approveAction}>Approve</button>
+        <RaisedButton onClick={this.props.rejectAction} className="item-button" label={"Reject"}/>
+        <RaisedButton onClick={this.props.approveForm} className="item-button" label={"Approve"}/>
+      </div>
       </div>
     </div>);
   }
@@ -127,10 +166,10 @@ class Image extends Component {
 
 class ItemForm extends Component {
   render() {
-    return (<div>
+    return (<div className={"modal-form"}>
       <form>
-        <input type={"number"}/>
-        <button onClick={this.props.approveAction}>Submit</button>
+        <input type={"number"} onChange={this.props.handleChange}/>
+        <div onClick={this.props.approveAction}>Submit</div>
       </form>
     </div>);
   }

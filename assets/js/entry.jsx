@@ -47,7 +47,7 @@ const muiTheme = getMuiTheme({
     primary2Color: "#a5009d",
   },
   appBar: {
-    // height: 50,
+    shadows: ['none']
   },
   card: {
   }
