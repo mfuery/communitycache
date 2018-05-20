@@ -21,7 +21,7 @@ export default class NeededView extends Component {
       return (<Card key={x.name} containerStyle={{paddingLeft: 5, paddingRight: 5, marginBottom: 10}}>
         <CardHeader
           title={x.item.name}
-          subtitle={`${58}/${x.quantity}`}
+          subtitle={`${x.quantity_fulfilled_so_far}/${x.quantity} units fulfilled`}
           avatar={x.item.image}>
         </CardHeader>
         <LinearProgressDeterminate
