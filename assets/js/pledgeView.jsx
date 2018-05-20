@@ -37,7 +37,7 @@ export default class PledgeView extends Component {
         this.state.currentItem = this.state.list[this.state.currentIndex];
         this.state.acceptedItems = [];
         this.state.rejectedItems = [];
-
+        this.state.successModalIsOpen = false;
         // Modal
         this.state.modalIsOpen = false;
         this.openModal = this.openModal.bind(this);
@@ -67,12 +67,18 @@ export default class PledgeView extends Component {
     openModal() {
         this.setState({modalIsOpen: true});
     }
+    openSuccessModal() {
+      this.setState({successModalIsOpen: true});
+    }
     afterOpenModal() {
         // references are now sync'd and can be accessed.
         // this.subtitle.style.color = '#f00';
     }
     closeModal() {
         this.setState({modalIsOpen: false});
+    }
+    closeSuccessModal() {
+      this.setState({successModalIsOpen: false});
     }
     getNextIndex() {
         let index = this.state.currentIndex;
@@ -100,6 +106,7 @@ export default class PledgeView extends Component {
             return;
         });
         this.closeModal();
+        this.openSuccessModal();
         this.getNextItem();
     }
     approveForm() {
@@ -131,6 +138,21 @@ export default class PledgeView extends Component {
         return (
             <div className={"pledge-container"}>
                 {this.renderItem()}
+                <Modal
+                  isOpen={this.state.successModalIsOpen}
+                  onAfterOpen={this.afterOpenModal.bind(this)}
+                  onRequestClose={this.closeModal.bind(this)}
+                  style={customStyles}
+                  contentLabel="Example Modal"
+                >
+                  <button onClick={this.closeSuccessModal.bind(this)}>close</button>
+                  <h1>Thank you for donating!</h1>
+                  <div className="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/"
+                       data-layout="button_count" data-size="large" data-mobile-iframe="true"><a target="_blank"
+                                                                                                 href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+                                                                                                 className="fb-xfbml-parse-ignore">Share</a>
+                  </div>
+                </Modal>
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal.bind(this)}

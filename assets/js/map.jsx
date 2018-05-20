@@ -43,7 +43,7 @@ export default class MapContainer extends Component {
     return <Map
       isMarkerShown={true}
       onMarkerClick={this.handleMarkerClick}
-      containerElement={<div style={{ height: `400px` }} />}
+      containerElement={<div style={{ height: `600px` }} />}
       mapElement={<div style={{ height: `100%` }} />}
       directions={this.state.directions}
       lat={parseFloat(this.props.location.state.lat)}
