@@ -1,17 +1,8 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import {RaisedButton} from "material-ui";
+import {customStyles} from "./styles.js";
 
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
 
 function postData(url, data) {
   // Default options are marked with *
@@ -175,7 +166,7 @@ class Image extends Component {
 
 class ItemForm extends Component {
   render() {
-    return (<div>
+    return (<div className={"modal-form"}>
       <form>
         <input type={"number"} onChange={this.props.handleChange}/>
         <div onClick={this.props.approveAction}>Submit</div>
