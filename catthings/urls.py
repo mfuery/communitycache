@@ -18,7 +18,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 from rest_framework import routers
 
-from api.views import DepotViewSet, ItemViewSet, PledgeViewSet, NeedViewSet
+from api.views import DepotViewSet, ItemViewSet, PledgeViewSet, NeedViewSet, UserProfileViewSet
 
 router = routers.SimpleRouter()
 
@@ -26,6 +26,7 @@ router.register(r'depots', DepotViewSet)
 router.register(r'items', ItemViewSet)
 router.register(r'pledges', PledgeViewSet)
 router.register(r'needs', NeedViewSet)
+router.register(r'user-profiles', UserProfileViewSet)
 
 
 urlpatterns = [
