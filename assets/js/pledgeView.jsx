@@ -146,11 +146,12 @@ export default class PledgeView extends Component {
                   contentLabel="Example Modal"
                 >
                   <button onClick={this.closeSuccessModal.bind(this)}>close</button>
-                  <h1>Thank you for donating!</h1>
+                  <h5>Thank you for donating!</h5>
+                  <TextField multiLine={true} type="text" value={"I pledged to donate to help with the relief effort!"}/>
                   <div className="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/"
                        data-layout="button_count" data-size="large" data-mobile-iframe="true"><a target="_blank"
                                                                                                  href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
-                                                                                                 className="fb-xfbml-parse-ignore">Share</a>
+                                                                                                 className="fb-xfbml-parse-ignore">Share on Facebook</a>
                   </div>
                 </Modal>
                 <Modal
