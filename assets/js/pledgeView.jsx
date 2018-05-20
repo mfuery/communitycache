@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
-import {RaisedButton} from "material-ui";
+import {FlatButton, RaisedButton, TextField} from "material-ui";
 import {customStyles} from "./styles.js";
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 
 
 function postData(url, data) {
@@ -19,7 +20,7 @@ function postData(url, data) {
     redirect: 'follow', // manual, *follow, error
     referrer: 'no-referrer', // *client, no-referrer
   })
-  .then(response => response.json()) // parses response to JSON
+    .then(response => response.json()) // parses response to JSON
 }
 
 export default class PledgeView extends Component {
@@ -115,7 +116,13 @@ export default class PledgeView extends Component {
         />
       )
     } else {
-      return (<div>Loading...</div>);
+      return (<div>
+        <RefreshIndicator
+          size={40}
+          left={170}
+          top={200}
+          status="loading"/>
+      </div>);
     }
   }
   render () {
@@ -135,7 +142,7 @@ export default class PledgeView extends Component {
             handleChange={this.handleChange.bind(this)}
           />
         </Modal>
-    </div>);
+      </div>);
   }
 }
 
@@ -146,10 +153,10 @@ class Item extends Component {
       <h3>{this.props.item.item.name}</h3>
       <div>Quantity Needed: {this.props.item.quantity}</div>
       <div className={"bottom-nav"}>
-      <div className={"item-buttons-container"}>
-        <RaisedButton onClick={this.props.rejectAction} className="item-button" label={"Reject"}/>
-        <RaisedButton onClick={this.props.approveForm} className="item-button" label={"Approve"}/>
-      </div>
+        <div className={"item-buttons-container"}>
+          <RaisedButton onClick={this.props.rejectAction} className="item-button" label={"Reject"}/>
+          <RaisedButton onClick={this.props.approveForm} className="item-button" label={"Approve"}/>
+        </div>
       </div>
     </div>);
   }
@@ -168,8 +175,9 @@ class ItemForm extends Component {
   render() {
     return (<div className={"modal-form"}>
       <form>
-        <input type={"number"} onChange={this.props.handleChange}/>
-        <div onClick={this.props.approveAction}>Submit</div>
+        {/*<input type={"number"} onChange={this.props.handleChange}/>*/}
+        <TextField label="Quantity" type="number" onChange={this.props.handleChange}/>
+        <FlatButton label="Submit" color="primary" onClick={this.props.approveAction}/>
       </form>
     </div>);
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {Card, CardHeader, CardMedia, CardTitle} from "material-ui/Card/index";
-import LinearProgress from 'material-ui/LinearProgress';
+import {Card, CardHeader, CardMedia, CardText, CardTitle} from "material-ui/Card/index";
+import {RefreshIndicator} from "material-ui";
+import LinearProgressDeterminate from "./progress.jsx";
 
 
 export default class NeededView extends Component {
@@ -13,61 +14,39 @@ export default class NeededView extends Component {
   }
   componentDidMount() {
     fetch('/api/needs').then(res => res.json()).then(res => {
-      this.setState({list: res});
+      this.setState({list: res.filter(x => !x.is_fulfilled)});
     });
   }
   cards() {
-    return this.state.list.map(x => {
-      return (<Card key={x.name} containerStyle={{paddingLeft: 5, paddingRight: 5, marginBottom: 10}}>
-        <CardHeader
-          title={x.item.name}
-          subtitle={`${x.quantity_fulfilled_so_far}/${x.quantity} units fulfilled`}
-          avatar={x.item.image}>
-        </CardHeader>
-        <LinearProgressDeterminate
-          completed={x.progress}
-        />
-      </Card>)
-    });
+    if (this.state.list.length > 0) {
+      return this.state.list.map(x => {
+        return (<Card key={x.name} containerStyle={{paddingLeft: 5, paddingRight: 5, marginBottom: 10}}>
+          <CardHeader
+            title={x.item.name}
+            subtitle={`${x.quantity_fulfilled_so_far}/${x.quantity} units fulfilled`}
+            avatar={x.item.image}>
+          </CardHeader>
+          <CardText>{x.description}</CardText>
+          <LinearProgressDeterminate
+            completed={x.progress}
+          />
+        </Card>)
+      });
+    } else {
+      return (<div>
+        <RefreshIndicator
+          size={40}
+          left={170}
+          top={200}
+          status="loading"/>
+      </div>);
+    }
   }
   render () {
     return (<div>
       <div>
-      {this.cards()}
+        {this.cards()}
       </div>
     </div>);
-  }
-}
-
-class LinearProgressDeterminate extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      completed: 0,
-    };
-  }
-
-  componentDidMount() {
-    this.progress(this.props.completed)
-  }
-
-  componentWillUnmount() {
-    // clearTimeout(this.timer);
-  }
-
-  progress(completed) {
-    if (completed > 100) {
-      this.setState({completed: 100});
-    } else {
-      this.setState({completed});
-    }
-  }
-
-  render() {
-    return (
-      <LinearProgress color="#a5009d" mode="determinate" value={this.state.completed} />
-    );
   }
 }
