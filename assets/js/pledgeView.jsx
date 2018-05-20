@@ -152,15 +152,17 @@ class Item extends Component {
     let item = this.props.item;
     let lat = item.depot.lat;
     let lng = item.depot.lon;
+    let qty = item.quantity - item.quantity_fulfilled_so_far;
+    let qtyNeeded = qty < 0 ? 0 : qty;
     return (<div>
       <Image src={this.props.item.item.image}/>
       <h3>{this.props.item.item.name}</h3>
-      <div>Quantity Needed: {this.props.item.quantity}</div>
+      <div>Quantity Needed: {qtyNeeded}</div>
       <div>Drop Off: <Link to={{pathname: '/map', state: {lat, lng, item}}}>{this.props.item.depot.address}</Link></div>
       <div className={"bottom-nav"}>
         <div className={"item-buttons-container"}>
           <RaisedButton onClick={this.props.rejectAction} className="item-button" label={"Reject"}/>
-          <RaisedButton onClick={this.props.approveForm} className="item-button" label={"Approve"}/>
+          <RaisedButton onClick={this.props.approveForm} className="item-button" label={"Donate"}/>
         </div>
       </div>
     </div>);
