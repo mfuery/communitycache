@@ -23,12 +23,6 @@ const config = merge(base_config, {
       'process.env.NODE_ENV': JSON.stringify('production'),
       'process.env': JSON.stringify('production')
     }),
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compressor: {
-    //     screw_ie8: true,
-    //     warnings: false
-    //   }
-    // })
   ]
 });
 
