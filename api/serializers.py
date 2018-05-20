@@ -18,11 +18,13 @@ class PledgeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pledge
+        depth = 2
         fields = '__all__'
 
 
 class NeedSerializer(serializers.ModelSerializer):
     pledges = PledgeSerializer(read_only=True, many=True)
+    item = ItemSerializer('item')
 
     class Meta:
         model = Need
