@@ -21,11 +21,11 @@ export default class NeededView extends Component {
       return (<Card key={x.name} containerStyle={{paddingLeft: 5, paddingRight: 5, marginBottom: 10}}>
         <CardHeader
           title={x.item.name}
-          subtitle={`${x.item.quantity}/100`}
+          subtitle={`${58}/${x.quantity}`}
           avatar={x.item.image}>
         </CardHeader>
         <LinearProgressDeterminate
-          completed={58}
+          completed={x.progress}
         />
       </Card>)
     });
@@ -67,7 +67,7 @@ class LinearProgressDeterminate extends Component {
 
   render() {
     return (
-      <LinearProgress mode="determinate" value={this.state.completed} />
+      <LinearProgress color="#a5009d" mode="determinate" value={this.state.completed} />
     );
   }
 }
