@@ -30,7 +30,7 @@ class Pledge(models.Model):
     need = models.ForeignKey('Need', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.need.name}[{self.quantity}]'
+        return f'{self.need.item.name}[{self.quantity}]'
 
 
 class Item(models.Model):
@@ -123,6 +123,9 @@ class UserProfile(models.Model):
 
         nearby_items = min(distances, key=distances.get)
         return nearby_items
+
+    def __str__(self):
+        return f'{self.user.username}[{self.lat},{self.lon}]'
 
 
 @receiver(post_save, sender=User)
