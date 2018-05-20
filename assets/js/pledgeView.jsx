@@ -38,6 +38,7 @@ export default class PledgeView extends Component {
       list: [],
     };
     this.state.currentIndex = 0;
+    this.state.quantity = 0;
     this.state.currentItem = this.state.list[this.state.currentIndex];
     this.state.acceptedItems = [];
     this.state.rejectedItems = [];
@@ -49,7 +50,7 @@ export default class PledgeView extends Component {
     this.closeModal = this.closeModal.bind(this);
   }
   componentDidMount() {
-    fetch('/needs')
+    fetch('/api/needs')
       .then(res => {
         return res.json();
       })
@@ -60,10 +61,13 @@ export default class PledgeView extends Component {
           this.setState({
             currentIndex: 0,
             currentItem: list[0],
-            // list: res,
+            list: res,
           });
         }
       })
+  }
+  handleChange(event) {
+    this.setState({quantity: event.target.value});
   }
   openModal() {
     this.setState({modalIsOpen: true});
@@ -90,11 +94,18 @@ export default class PledgeView extends Component {
     this.getNextItem();
   }
   approveAction() {
-    postData('/pledges/', JSON.stringify({})).then(res => {
-      return res;
+    let needId = this.state.currentItem.id;
+    postData('/api/pledges/', {
+      need: needId,
+      user_profile: 1,
+      quantity: this.state.quantity
+    }).then(res => {
+      console.log(res);
+      // return res;
+      return;
     });
-    // this.closeModal();
-    // this.getNextItem();
+    this.closeModal();
+    this.getNextItem();
   }
   approveForm() {
     this.setState({
@@ -129,6 +140,7 @@ export default class PledgeView extends Component {
           <button onClick={this.closeModal.bind(this)}>close</button>
           <ItemForm
             approveAction={this.approveAction.bind(this)}
+            handleChange={this.handleChange.bind(this)}
           />
         </Modal>
     </div>);
@@ -138,9 +150,9 @@ export default class PledgeView extends Component {
 class Item extends Component {
   render() {
     return (<div>
-      <Image src={this.props.item.image}/>
-      <h3>{this.props.item.name}</h3>
-      <div>Quantity Needed: {this.props.item.quantity}</div>
+      <Image src={this.props.item.item.image}/>
+      <h3>{this.props.item.item.name}</h3>
+      <div>Quantity Needed: {this.props.item.item.quantity}</div>
       <div className={"item-buttons-container"}>
         <button onClick={this.props.rejectAction}>Reject</button>
         <button onClick={this.props.approveForm}>Approve</button>
@@ -162,8 +174,8 @@ class ItemForm extends Component {
   render() {
     return (<div>
       <form>
-        <input type={"number"}/>
-        <button onClick={this.props.approveAction}>Submit</button>
+        <input type={"number"} onChange={this.props.handleChange}/>
+        <div onClick={this.props.approveAction}>Submit</div>
       </form>
     </div>);
   }
