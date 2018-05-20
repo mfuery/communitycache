@@ -56,6 +56,9 @@ class Depot(models.Model):
     lat = models.DecimalField(max_digits=9, decimal_places=6)
     lon = models.DecimalField(max_digits=9, decimal_places=6)
     address = models.TextField(max_length=140)
+    city = models.CharField(max_length=140)
+    state = models.CharField(max_length=140)
+    image = models.ImageField(null=True, blank=True)
 
     def get_pledges(self):
         pledges = Pledge.objects.filter(

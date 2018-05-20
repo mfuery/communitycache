@@ -6,6 +6,7 @@ import FulfilledView from "./fulfilledView.jsx";
 import MapContainer from "./map.jsx";
 import {AppBar} from "material-ui";
 import {Tab, Tabs} from "material-ui/Tabs/index";
+import {logo} from '../images/logo_small.png'
 
 
 export default class App extends Component {
@@ -15,7 +16,9 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <AppBar title={"Cat Stuff"} zDepth={0}/>
+        <AppBar iconElementLeft={logo} title={"Nationwide Angels"} zDepth={0}>
+            <logo/>
+        </AppBar>
         <Tabs>
           <Tab label="Pledge" containerElement={<Link to={'/'}/>} />
           <Tab label="Needed" containerElement={<Link to={'/needed'}/>} />

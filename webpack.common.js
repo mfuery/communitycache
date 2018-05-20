@@ -64,7 +64,7 @@ const config = {
       },
       {
         test: /\.(mp4|webm|mp3|ogg|wav|jpeg|jpg|bmp|ico|png|gif|ttf|otf|woff|eot)$/,
-        loader: 'file?name=[path][name].[ext]?[hash]'
+        loader: 'file-loader?name=[path][name].[ext]?[hash]'
       }
     ]
   },
