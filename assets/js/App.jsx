@@ -14,7 +14,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <AppBar/>
+        <AppBar title={"Cat Stuff"} zDepth={0}/>
         <Tabs>
           <Tab label="Pledged" containerElement={<Link to={'/'}/>} />
           <Tab label="Needed" containerElement={<Link to={'/needed'}/>} />
