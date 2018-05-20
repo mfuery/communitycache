@@ -81,7 +81,7 @@ export default class PledgeView extends Component {
   }
   render () {
     return (
-      <div>
+      <div className={"pledge-container"}>
         <Item
           item={this.state.currentItem}
           approveAction={this.approveForm.bind(this)}

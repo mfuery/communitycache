@@ -3,6 +3,8 @@ import { Switch, Route, Link } from 'react-router-dom'
 import PledgeView from "./pledgeView.jsx";
 import NeededView from "./neededView.jsx";
 import FulfilledView from "./fulfilledView.jsx";
+import {AppBar} from "material-ui";
+import {Tab, Tabs} from "material-ui/Tabs/index";
 
 
 export default class App extends Component {
@@ -12,16 +14,12 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h2 className={"App-title"}>Cat Stuff</h2>
-        </header>
-        <nav className={"navbar"}>
-          <ul>
-            <li className={"nav-item"}><Link to={'/'}>Pledged</Link></li>
-            <li className={"nav-item"}><Link to={'/needed'}>Needed</Link></li>
-            <li className={"nav-item"}><Link to={'/fulfilled'}>Fulfilled</Link></li>
-          </ul>
-        </nav>
+        <AppBar/>
+        <Tabs>
+          <Tab label="Pledged" containerElement={<Link to={'/'}/>} />
+          <Tab label="Needed" containerElement={<Link to={'/needed'}/>} />
+          <Tab label="Fulfilled" containerElement={<Link to={'/fulfilled'}/>} />
+        </Tabs>
         <Switch>
           <Route exact path='/' component={PledgeView}/>
           <Route path='/needed' component={NeededView}/>
