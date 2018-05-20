@@ -27,6 +27,8 @@ class Pledge(models.Model):
     M:M Users<->Needs
     """
     quantity = models.IntegerField(default=1)
+    user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+    need = models.ForeignKey('Need', on_delete=models.CASCADE)
 
 
 class Item(models.Model):
@@ -63,7 +65,6 @@ class Need(models.Model):
     item = models.ForeignKey(Item, on_delete=models.DO_NOTHING)
     is_fulfilled = models.BooleanField(default=False)
     quantity = models.IntegerField(default=1)
-    pledges = models.ManyToManyField(Pledge)
     depot = models.ForeignKey(Depot, on_delete=models.DO_NOTHING)
 
 
@@ -76,7 +77,6 @@ class UserProfile(models.Model):
     # location = geomodels.PointField()
     lat = models.DecimalField(max_digits=9, decimal_places=6)
     lon = models.DecimalField(max_digits=9, decimal_places=6)
-    pledges = models.ManyToManyField(Pledge)
 
     def get_closest_depot(self):
         """
