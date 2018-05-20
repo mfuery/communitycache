@@ -1,0 +1,6 @@
+# git history
+.git/
+
+# npm
+node_modules
+npm-debug.log
