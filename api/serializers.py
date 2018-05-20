@@ -19,9 +19,9 @@ class PledgeSerializer(serializers.ModelSerializer):
 class NeedSerializer(serializers.ModelSerializer):
     pledges = PledgeSerializer(read_only=True, many=True)
     item = ItemSerializer()
-    item = ItemSerializer('item')
     progress = serializers.SerializerMethodField()
     quantity_fulfilled_so_far = serializers.SerializerMethodField()
+    contributor_count = serializers.SerializerMethodField()
 
     def get_progress(self, model):
         return model.progress
@@ -29,9 +29,12 @@ class NeedSerializer(serializers.ModelSerializer):
     def get_quantity_fulfilled_so_far(self, model):
         return model.quantity_fulfilled_so_far
 
+    def get_contributor_count(self, model):
+        return model.contributor_count
+
     class Meta:
         model = Need
-        # depth = 2
+        depth = 2
         fields = '__all__'
 
 

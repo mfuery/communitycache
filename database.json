@@ -96,8 +96,10 @@
   "model": "core.need",
   "pk": 1,
   "fields": {
+    "created": "2018-05-20T07:06:46.865",
     "item": 1,
     "is_fulfilled": false,
+    "fulfilled_at": null,
     "quantity": 50,
     "depot": 1,
     "description": "Earthquake response 2018"
@@ -107,8 +109,10 @@
   "model": "core.need",
   "pk": 2,
   "fields": {
+    "created": "2018-05-20T07:06:46.865",
     "item": 2,
     "is_fulfilled": false,
+    "fulfilled_at": null,
     "quantity": 100,
     "depot": 1,
     "description": "Earthquake response 2018"
@@ -118,8 +122,10 @@
   "model": "core.need",
   "pk": 3,
   "fields": {
+    "created": "2018-05-20T07:06:46.865",
     "item": 4,
     "is_fulfilled": true,
+    "fulfilled_at": "2018-05-20T00:10:06.762",
     "quantity": 100,
     "depot": 1,
     "description": "Need Large Tshirts - any color or style."
@@ -130,7 +136,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$100000$JhHADIOQ78GD$6GHxSOn5d/sHY2N/U9/dzb12z40Rs1u/Q7nq8hw2AJs=",
-    "last_login": "2018-05-20T03:27:36.661Z",
+    "last_login": "2018-05-20T03:27:36.661",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -138,7 +144,7 @@
     "email": "admin@admin.com",
     "is_staff": true,
     "is_active": true,
-    "date_joined": "2018-05-19T23:53:02.137Z",
+    "date_joined": "2018-05-19T23:53:02.137",
     "groups": [],
     "user_permissions": []
   }
@@ -148,7 +154,7 @@
   "pk": 2,
   "fields": {
     "password": "pbkdf2_sha256$100000$krOnsDkW91Ai$zIeF8aCWfuWOSq/2ZtkkO+n1AiWUhVZK6q2bbgNlLhM=",
-    "last_login": "2018-05-20T04:06:45Z",
+    "last_login": "2018-05-20T04:06:45",
     "is_superuser": false,
     "username": "michael",
     "first_name": "Michael",
@@ -156,7 +162,7 @@
     "email": "mfuery@gmail.com",
     "is_staff": false,
     "is_active": true,
-    "date_joined": "2018-05-20T04:06:06Z",
+    "date_joined": "2018-05-20T04:06:06",
     "groups": [],
     "user_permissions": []
   }
@@ -174,7 +180,7 @@
     "email": "",
     "is_staff": false,
     "is_active": true,
-    "date_joined": "2018-05-20T04:06:56.526Z",
+    "date_joined": "2018-05-20T04:06:56.526",
     "groups": [],
     "user_permissions": []
   }

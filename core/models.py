@@ -1,9 +1,10 @@
+import datetime
 from logging import getLogger
 from math import sin, cos, atan2, sqrt
 
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -79,9 +80,11 @@ class Need(models.Model):
     """
     item = models.ForeignKey(Item, on_delete=models.DO_NOTHING)
     is_fulfilled = models.BooleanField(default=False)
+    fulfilled_at = models.DateTimeField(null=True)
     quantity = models.IntegerField(default=1)
     depot = models.ForeignKey(Depot, on_delete=models.DO_NOTHING)
     description = models.TextField(max_length=140)
+    created = models.DateTimeField(auto_created=True)
 
     @property
     def quantity_fulfilled_so_far(self):
@@ -99,10 +102,18 @@ class Need(models.Model):
 
         if pledges['quantity_sum'] == self.quantity:
             self.is_fulfilled = True
+            self.fulfilled_at = datetime.datetime.now()
             self.save()
 
         return 0 if not pledges['quantity_sum'] \
             else round((pledges['quantity_sum'] / self.quantity) * 100, ndigits=2)
+
+    @property
+    def contributor_count(self):
+        pledges = Pledge.objects.filter(need=self).aggregate(
+            count=Count('user_profile')
+        )
+        return pledges['count']
 
     def __str__(self):
         return f'{self.item.name}[{self.depot.name}]'
@@ -148,6 +159,12 @@ class UserProfile(models.Model):
 
         nearby_items = min(distances, key=distances.get)
         return nearby_items
+
+    def get_reimbursement(self):
+        """Todo"""
+        pledges = Pledge.objects.filter(user_profile=self).aggregate(
+            Sum('quantity')
+        )
 
     def __str__(self):
         return f'{self.user.username}[{self.lat},{self.lon}]'
