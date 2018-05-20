@@ -22,15 +22,6 @@ class PledgeViewSet(viewsets.ModelViewSet):
     queryset = Pledge.objects.all()
     serializer_class = PledgeSerializer
 
-    # def create(self, request, *args, **kwargs):
-    #     queryset = Pledge.objects.filter(user=self.request.user, need=self.request.need)
-    #     serializer = PledgeSerializer(queryset, many=True)
-    #
-    #     if queryset.exists():
-    #         raise ValidationError('You have already pledged for this need.')
-    #
-    #     return Response(serializer.data)
-
 
 class NeedViewSet(viewsets.ModelViewSet):
     queryset = Need.objects.all()
