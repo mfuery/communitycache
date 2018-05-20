@@ -82,6 +82,14 @@ class Need(models.Model):
     depot = models.ForeignKey(Depot, on_delete=models.DO_NOTHING)
 
     @property
+    def quantity_fulfilled_so_far(self):
+        pledges = Pledge.objects.filter(need=self).aggregate(
+            quantity_sum=Sum('quantity')
+        )
+
+        return pledges['quantity_sum']
+
+    @property
     def progress(self):
         pledges = Pledge.objects.filter(need=self).aggregate(
             quantity_sum=Sum('quantity')
