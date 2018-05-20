@@ -3,5 +3,5 @@ set -e
 set -x
 
 npm run build-prod
-./manage.py collectstatic --no-input
+./manage.py collectstatic --noinput
 eb deploy

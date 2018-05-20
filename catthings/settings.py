@@ -142,8 +142,8 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "www", "static")
-AWS_ACCESS_KEY_ID = ''
-AWS_SECRET_ACCESS_KEY = ''
+AWS_ACCESS_KEY_ID = 'put this in local_settings.py'
+AWS_SECRET_ACCESS_KEY = 'put this in local_settings.py'
 AWS_STORAGE_BUCKET_NAME = 'catthings'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
@@ -157,12 +157,6 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "www", "media")
 
-try:
-    from catthings.local_settings import *
-    logger.info('loaded local_settings')
-except ImportError:
-    pass
-
 WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
@@ -173,3 +167,14 @@ WEBPACK_LOADER = {
         'IGNORE': ['.+\.hot-update.js', '.+\.map']
     }
 }
+
+################################################################
+# This should be at bottom of file so setting can be overridden.
+try:
+    from catthings.local_settings import *
+    logger.info('loaded local_settings')
+except ImportError:
+    pass
+
+# EOF
+################################################################
