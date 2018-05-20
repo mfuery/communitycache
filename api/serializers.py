@@ -20,6 +20,11 @@ class PledgeSerializer(serializers.ModelSerializer):
 class NeedSerializer(serializers.ModelSerializer):
     pledges = PledgeSerializer(read_only=True, many=True)
     item = ItemSerializer('item')
+    progress = serializers.SerializerMethodField()
+
+    def get_progress(self, model):
+        return model.progress
+
     class Meta:
         model = Need
         depth = 2
