@@ -22,6 +22,7 @@ class NeedSerializer(serializers.ModelSerializer):
     item = ItemSerializer('item')
     class Meta:
         model = Need
+        depth = 2
         fields = '__all__'
 
 
