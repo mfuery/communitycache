@@ -10,7 +10,6 @@ class ItemSerializer(serializers.ModelSerializer):
 
 
 class PledgeSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Pledge
         # depth = 2
@@ -19,10 +18,11 @@ class PledgeSerializer(serializers.ModelSerializer):
 
 class NeedSerializer(serializers.ModelSerializer):
     pledges = PledgeSerializer(read_only=True, many=True)
-    item = ItemSerializer('item')
+    item = ItemSerializer()
+
     class Meta:
         model = Need
-        depth = 2
+        # depth = 2
         fields = '__all__'
 
 
@@ -40,6 +40,3 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = '__all__'
-
-
-
