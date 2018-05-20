@@ -88,10 +88,36 @@
   }
 },
 {
+  "model": "sessions.session",
+  "pk": "5z5egz5dml3i2tjnpfnl00svj62az5qb",
+  "fields": {
+    "session_data": "MmM2ZTRlOGViMDVmODcwNDQ2NDc1ZGM4OTQ1NDNmYThmNWJmYTU1Mzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIzYjMxYWFhZDVlMzEyNjk3NDc2ZGM0MWJhMmE0NTkxMzQxODhlNDlmIn0=",
+    "expire_date": "2018-06-03T00:49:11.443Z"
+  }
+},
+{
+  "model": "core.item",
+  "pk": 1,
+  "fields": {
+    "name": "1 Gallon Water Bottle",
+    "cost": "1.00",
+    "image": "water.jpg"
+  }
+},
+{
+  "model": "core.item",
+  "pk": 2,
+  "fields": {
+    "name": "SPAM",
+    "cost": "2.00",
+    "image": "spam.jpg"
+  }
+},
+{
   "model": "core.depot",
   "pk": 1,
   "fields": {
-    "name": "Alice",
+    "name": "Plug and Play Sunnyvale",
     "lat": "37.371065",
     "lon": "-122.026808"
   }
@@ -100,9 +126,40 @@
   "model": "core.depot",
   "pk": 2,
   "fields": {
-    "name": "Bob",
+    "name": "Target",
     "lat": "37.378979",
     "lon": "-122.045146"
+  }
+},
+{
+  "model": "core.depot",
+  "pk": 3,
+  "fields": {
+    "name": "Sunnyvale Preschool",
+    "lat": "37.377750",
+    "lon": "-122.048330"
+  }
+},
+{
+  "model": "core.need",
+  "pk": 1,
+  "fields": {
+    "item": 1,
+    "is_fulfilled": false,
+    "quantity": 50,
+    "depot": 1,
+    "pledges": []
+  }
+},
+{
+  "model": "core.need",
+  "pk": 2,
+  "fields": {
+    "item": 2,
+    "is_fulfilled": false,
+    "quantity": 100,
+    "depot": 1,
+    "pledges": []
   }
 },
 {
@@ -400,6 +457,24 @@
     "name": "Can delete pledge",
     "content_type": 11,
     "codename": "delete_pledge"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$100000$EGbdqMUj1eHa$K0tQ4F5mbtwy8gtdY8BNRlmZh2PLciwDN3mgPeaQshY=",
+    "last_login": "2018-05-20T00:49:11.441Z",
+    "is_superuser": true,
+    "username": "stephen",
+    "first_name": "",
+    "last_name": "",
+    "email": "stephenhan@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2018-05-20T00:48:52.873Z",
+    "groups": [],
+    "user_permissions": []
   }
 }
 ]

@@ -18,13 +18,14 @@ from django.urls import path
 from django.views.generic import TemplateView
 from rest_framework import routers
 
-from api.views import DepotViewSet, ItemViewSet, PledgeViewSet
+from api.views import DepotViewSet, ItemViewSet, PledgeViewSet, NeedViewSet
 
 router = routers.SimpleRouter()
 
 router.register(r'depots', DepotViewSet)
 router.register(r'items', ItemViewSet)
 router.register(r'pledges', PledgeViewSet)
+router.register(r'needs', NeedViewSet)
 
 
 urlpatterns = [
