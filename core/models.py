@@ -30,6 +30,7 @@ class Pledge(models.Model):
     quantity = models.IntegerField(default=1)
     user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
     need = models.ForeignKey('Need', on_delete=models.CASCADE)
+    is_reimbursed = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.need.item.name}[{self.quantity}]'
@@ -95,10 +96,14 @@ class Need(models.Model):
         if not pledges['quantity_sum']:
             pledges['quantity_sum'] = 0
 
-        return pledges['quantity_sum']
+        return int(pledges['quantity_sum'])
 
     @property
     def progress(self):
+        """
+        Returns:
+            integer % completed 0 to 100
+        """
         pledges = Pledge.objects.filter(need=self).aggregate(
             quantity_sum=Sum('quantity')
         )
@@ -108,8 +113,17 @@ class Need(models.Model):
             self.fulfilled_at = datetime.datetime.now()
             self.save()
 
-        return 0 if not pledges['quantity_sum'] \
+        value = int(
+            0 if not pledges['quantity_sum']
             else round((pledges['quantity_sum'] / self.quantity) * 100, ndigits=2)
+        )
+
+        if value < 0:
+            value = 0
+        elif value > 100:
+            value = 100
+
+        return value
 
     @property
     def contributor_count(self):
@@ -163,11 +177,24 @@ class UserProfile(models.Model):
         nearby_items = min(distances, key=distances.get)
         return nearby_items
 
-    def get_reimbursement(self):
-        """Todo"""
-        pledges = Pledge.objects.filter(user_profile=self).aggregate(
+    @property
+    def reimbursement_amount(self):
+        """
+        Todo
+        Determine how much $ Nationwide needs to reimburse user.
+
+        Returns:
+
+        """
+        pledges = Pledge.objects.filter(
+            user_profile=self,
+            is_reimbursed=True,
+        ).aggregate(
             Sum('quantity')
+            # * pledge__quantity
         )
+
+        return 0
 
     def __str__(self):
         return f'{self.user.username}[{self.lat},{self.lon}]'
