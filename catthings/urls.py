@@ -15,25 +15,13 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.views.generic import TemplateView
-from rest_framework import routers
 
-from api.views import DepotViewSet, ItemViewSet, PledgeViewSet, NeedViewSet, UserProfileViewSet
 from catthings import settings
-
-router = routers.SimpleRouter()
-
-router.register(r'depots', DepotViewSet)
-router.register(r'items', ItemViewSet)
-router.register(r'pledges', PledgeViewSet)
-router.register(r'needs', NeedViewSet)
-router.register(r'user-profiles', UserProfileViewSet)
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('api.urls'), name='api'),
     path('', TemplateView.as_view(template_name='base.html')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-urlpatterns += router.urls
