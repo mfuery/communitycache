@@ -3,8 +3,11 @@ import { render } from 'react-dom';
 import * as r from 'ramda';
 import moment from 'moment';
 import App from "./App.jsx";
+import { BrowserRouter } from 'react-router-dom'
+
 
 import '../sass/main.scss';
+import {getMuiTheme, MuiThemeProvider} from "material-ui/styles/index";
 
 let csrftoken = csrfToken();
 
@@ -38,8 +41,24 @@ $.ajaxSetup({
   }
 });
 
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: "#1457a5",
+    primary2Color: "#a5009d",
+  },
+  appBar: {
+    // height: 50,
+  },
+  card: {
+  }
+});
+
 render(
-  <App/>,
+  <BrowserRouter>
+    <MuiThemeProvider muiTheme={muiTheme}>
+      <App/>
+    </MuiThemeProvider>
+  </BrowserRouter>,
   document.getElementById("app")
 );
 
