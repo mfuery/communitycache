@@ -33,17 +33,15 @@ export default class NeededView extends Component {
     fetch('/needs').then(res => res.json()).then(res => {
       this.setState({list: res});
     });
-    fetch('/items').then(res => res.json()).then(res => {
-      let items = res.reduce((sum, x) => {
-        sum[x.id] = x;
-      }, {});
-      this.setState({items: items});
-    });
+    // fetch('/items').then(res => res.json()).then(res => {
+    //   let items = res.reduce((sum, x) => {
+    //     sum[x.id] = x;
+    //   }, {});
+    //   this.setState({items: items});
+    // });
   }
   cards() {
     return this.state.list.map(x => {
-      let item = this.state.items[x.id];
-      console.log(item);
       return (<Card key={x.name}>
         <CardHeader
           title={x.name}
@@ -59,9 +57,7 @@ export default class NeededView extends Component {
       {this.cards()}
       </div>
       <div className={"bottom-nav"}>
-        <RaisedButton label={"Request Items"}
-                      style={"width: 100%"}
-        />
+        <RaisedButton label={"Request Items"}/>
       </div>
     </div>);
   }

@@ -49,17 +49,18 @@ export default class PledgeView extends Component {
     this.closeModal = this.closeModal.bind(this);
   }
   componentDidMount() {
-    fetch('/items')
+    fetch('/needs')
       .then(res => {
         return res.json();
       })
       .then(res => {
         let list = res;
         if (list.length > 0) {
+          this.setState({items: list});
           this.setState({
             currentIndex: 0,
             currentItem: list[0],
-            list: res,
+            // list: res,
           });
         }
       })
@@ -89,9 +90,11 @@ export default class PledgeView extends Component {
     this.getNextItem();
   }
   approveAction() {
-    fetch
-    this.closeModal();
-    this.getNextItem();
+    postData('/pledges/', JSON.stringify({})).then(res => {
+      return res;
+    });
+    // this.closeModal();
+    // this.getNextItem();
   }
   approveForm() {
     this.setState({
@@ -136,6 +139,7 @@ class Item extends Component {
   render() {
     return (<div>
       <Image src={this.props.item.image}/>
+      <h3>{this.props.item.name}</h3>
       <div>Quantity Needed: {this.props.item.quantity}</div>
       <div className={"item-buttons-container"}>
         <button onClick={this.props.rejectAction}>Reject</button>
@@ -149,7 +153,7 @@ class Item extends Component {
 class Image extends Component {
   render() {
     return <div className={"image-container"}>
-      {/*<img src={this.props.src}/>*/}
+      <img src={this.props.src}/>
     </div>
   }
 }
