@@ -48,10 +48,12 @@ class Depot(models.Model):
     lon = models.DecimalField(max_digits=9, decimal_places=6)
 
     def get_pledges(self):
-        pass
+        pledges = Pledge.objects.all()
+        return pledges
 
     def get_needed_items(self):
-        pass
+        items = Need.objects.filter(depot=self)
+        return items
 
 
 class Need(models.Model):
