@@ -95,6 +95,10 @@ class Need(models.Model):
             quantity_sum=Sum('quantity')
         )
 
+        if pledges['quantity_sum'] == self.quantity:
+            self.is_fulfilled = True
+            self.save()
+
         return 0 if not pledges['quantity_sum'] \
             else round((pledges['quantity_sum'] / self.quantity) * 100, ndigits=2)
 
