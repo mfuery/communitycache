@@ -3,6 +3,8 @@ from math import sin, cos, atan2, sqrt
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 logger = getLogger()
 
@@ -27,6 +29,9 @@ class Pledge(models.Model):
     user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
     need = models.ForeignKey('Need', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.need.name}[{self.quantity}]'
+
 
 class Item(models.Model):
     """
@@ -35,6 +40,9 @@ class Item(models.Model):
     name = models.CharField(max_length=255)
     cost = models.DecimalField(max_digits=9, decimal_places=2)
     image = models.ImageField()
+
+    def __str__(self):
+        return f'{self.name}[${self.cost}]'
 
 
 class Depot(models.Model):
@@ -58,6 +66,9 @@ class Depot(models.Model):
         items = Need.objects.filter(depot=self)
         return items
 
+    def __str__(self):
+        return f'{self.name}[{self.lat},{self.lon}]'
+
 
 class Need(models.Model):
     """
@@ -67,6 +78,9 @@ class Need(models.Model):
     is_fulfilled = models.BooleanField(default=False)
     quantity = models.IntegerField(default=1)
     depot = models.ForeignKey(Depot, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return f'{self.item.name}[{self.depot.name}]'
 
 
 class UserProfile(models.Model):
@@ -109,3 +123,16 @@ class UserProfile(models.Model):
 
         nearby_items = min(distances, key=distances.get)
         return nearby_items
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
+

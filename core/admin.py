@@ -21,3 +21,10 @@ class ItemAdmin(admin.ModelAdmin):
 
 class UserProfileAdmin(admin.ModelAdmin):
     model = UserProfile
+
+
+admin.site.register(Depot, DepotAdmin)
+admin.site.register(Item, ItemAdmin)
+admin.site.register(Need, NeedAdmin)
+admin.site.register(Pledge, PledgeAdmin)
+admin.site.register(UserProfile, UserProfileAdmin)

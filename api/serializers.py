@@ -28,6 +28,7 @@ class NeedSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Need
+        depth = 2
         fields = '__all__'
 
 
