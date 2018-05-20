@@ -88,9 +88,9 @@ class UserProfile(models.Model):
     User's location defines where the needed items are. (The user is carrying them)
     A user might have 12 rolls... that creates a new Pledge.
     """
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    lat = models.DecimalField(max_digits=9, decimal_places=6)
-    lon = models.DecimalField(max_digits=9, decimal_places=6)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    lat = models.DecimalField(max_digits=9, decimal_places=6, default=0.0)
+    lon = models.DecimalField(max_digits=9, decimal_places=6, default=0.0)
 
     def get_closest_depot(self):
         """
@@ -134,8 +134,6 @@ def create_user_profile(sender, instance, created, **kwargs):
         UserProfile.objects.create(user=instance)
 
 
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
-
+# @receiver(post_save, sender=User)
+# def save_user_profile(sender, instance, **kwargs):
+#     instance.user_profile.save()
