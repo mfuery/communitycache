@@ -3,6 +3,7 @@ from math import sin, cos, atan2, sqrt
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -60,6 +61,7 @@ class Depot(models.Model):
         )
 
         # for pledge in pledges:
+        # Todo: Adorn with distance data?
 
         return pledges
 
@@ -80,6 +82,23 @@ class Need(models.Model):
     quantity = models.IntegerField(default=1)
     depot = models.ForeignKey(Depot, on_delete=models.DO_NOTHING)
     description = models.TextField(max_length=140)
+
+    @property
+    def quantity_fulfilled_so_far(self):
+        pledges = Pledge.objects.filter(need=self).aggregate(
+            quantity_sum=Sum('quantity')
+        )
+
+        return pledges['quantity_sum']
+
+    @property
+    def progress(self):
+        pledges = Pledge.objects.filter(need=self).aggregate(
+            quantity_sum=Sum('quantity')
+        )
+
+        return 0 if not pledges['quantity_sum'] \
+            else round((pledges['quantity_sum'] / self.quantity) * 100, ndigits=2)
 
     def __str__(self):
         return f'{self.item.name}[{self.depot.name}]'
