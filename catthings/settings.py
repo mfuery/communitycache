@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from logging import getLogger
+
+logger = getLogger(__name__)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -148,6 +151,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "www", "media")
 
 try:
     from catthings.local_settings import *
-    print('loaded local_settings')
+    logger.info('loaded local_settings')
 except ImportError:
     pass
