@@ -114,3 +114,4 @@ venv.bak/
 node_modules
 static/
 webpack-stats*
+.env.json
