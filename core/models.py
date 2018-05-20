@@ -92,6 +92,9 @@ class Need(models.Model):
             quantity_sum=Sum('quantity')
         )
 
+        if not pledges['quantity_sum']:
+            pledges['quantity_sum'] = 0
+
         return pledges['quantity_sum']
 
     @property
