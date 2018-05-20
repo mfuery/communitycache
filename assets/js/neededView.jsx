@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Card, CardHeader, CardMedia, CardTitle} from "material-ui/Card/index";
-import RaisedButton from 'material-ui/RaisedButton';
+import LinearProgress from 'material-ui/LinearProgress';
+import {RaisedButton} from "material-ui";
 
 
 export default class NeededView extends Component {
@@ -30,24 +31,21 @@ export default class NeededView extends Component {
     };
   }
   componentDidMount() {
-    fetch('/needs').then(res => res.json()).then(res => {
+    fetch('/api/needs').then(res => res.json()).then(res => {
       this.setState({list: res});
     });
-    // fetch('/items').then(res => res.json()).then(res => {
-    //   let items = res.reduce((sum, x) => {
-    //     sum[x.id] = x;
-    //   }, {});
-    //   this.setState({items: items});
-    // });
   }
   cards() {
     return this.state.list.map(x => {
-      return (<Card key={x.name}>
+      return (<Card key={x.name} containerStyle={{paddingLeft: 10, paddingRight: 10, marginBottom: 10}}>
         <CardHeader
-          title={x.name}
-          subtitle={`${x.quantity}/100`}
-          avatar={x.image}>
+          title={x.item.name}
+          subtitle={`${x.item.quantity}/100`}
+          avatar={x.item.image}>
         </CardHeader>
+        <LinearProgressDeterminate
+          completed={58}
+        />
       </Card>)
     });
   }
@@ -57,8 +55,45 @@ export default class NeededView extends Component {
       {this.cards()}
       </div>
       <div className={"bottom-nav"}>
-        <RaisedButton label={"Request Items"}/>
+        <div className={"item-buttons-container"}>
+          <RaisedButton className={"item-button"} onClick={e => null} label={"Request Supplies"} />
+        </div>
       </div>
     </div>);
+  }
+}
+
+
+class LinearProgressDeterminate extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      completed: 0,
+    };
+  }
+
+  componentDidMount() {
+    this.progress(this.props.completed)
+    // this.timer = setTimeout(() => this.progress(5), 1000);
+  }
+
+  componentWillUnmount() {
+    // clearTimeout(this.timer);
+  }
+
+  progress(completed) {
+    if (completed > 100) {
+      this.setState({completed: 100});
+    } else {
+      this.setState({completed});
+    }
+  }
+
+  render() {
+    return (
+      <LinearProgress mode="determinate" value={this.state.completed} />
+    );
   }
 }

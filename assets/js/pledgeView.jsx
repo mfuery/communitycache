@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import {RaisedButton} from "material-ui";
 
 const customStyles = {
   content : {
@@ -152,10 +153,12 @@ class Item extends Component {
     return (<div>
       <Image src={this.props.item.item.image}/>
       <h3>{this.props.item.item.name}</h3>
-      <div>Quantity Needed: {this.props.item.item.quantity}</div>
+      <div>Quantity Needed: {this.props.item.quantity}</div>
+      <div className={"bottom-nav"}>
       <div className={"item-buttons-container"}>
-        <button onClick={this.props.rejectAction}>Reject</button>
-        <button onClick={this.props.approveForm}>Approve</button>
+        <RaisedButton onClick={this.props.rejectAction} className="item-button" label={"Reject"}/>
+        <RaisedButton onClick={this.props.approveForm} className="item-button" label={"Approve"}/>
+      </div>
       </div>
     </div>);
   }
