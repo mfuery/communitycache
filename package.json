@@ -44,6 +44,7 @@
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
+    "google-maps-react": "^2.0.2",
     "kefir": "^3.8.3",
     "material-ui": "^0.20.1",
     "moment": "^2.22.1",

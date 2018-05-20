@@ -6,7 +6,7 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-img {
+.item-img {
   height: 350px;
   overflow: hidden;
 }
@@ -71,12 +71,14 @@ nav {
   width: 100%;
   position: absolute;
   border-top: #ccc;
-  bottom: 0;
+  //bottom: 0;
 }
 
 .item-buttons-container {
+  margin-top: 35px;
   display: flex;
   flex-direction: row;
+  height: 45px;
   .item-button {
     flex: 1;
   }

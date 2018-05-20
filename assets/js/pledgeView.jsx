@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import {FlatButton, RaisedButton, TextField} from "material-ui";
 import {customStyles} from "./styles.js";
 import RefreshIndicator from 'material-ui/RefreshIndicator';
+import Link from "react-router-dom/es/Link";
 
 
 function postData(url, data) {
@@ -148,10 +149,14 @@ export default class PledgeView extends Component {
 
 class Item extends Component {
   render() {
+    let item = this.props.item;
+    let lat = item.depot.lat;
+    let lng = item.depot.lon;
     return (<div>
       <Image src={this.props.item.item.image}/>
       <h3>{this.props.item.item.name}</h3>
       <div>Quantity Needed: {this.props.item.quantity}</div>
+      <div>Drop Off: <Link to={{pathname: '/map', state: {lat, lng, item}}}>{this.props.item.depot.address}</Link></div>
       <div className={"bottom-nav"}>
         <div className={"item-buttons-container"}>
           <RaisedButton onClick={this.props.rejectAction} className="item-button" label={"Reject"}/>
@@ -166,7 +171,7 @@ class Item extends Component {
 class Image extends Component {
   render() {
     return <div className={"image-container"}>
-      <img src={this.props.src}/>
+      <img className={"item-img"} src={this.props.src}/>
     </div>
   }
 }
@@ -174,6 +179,7 @@ class Image extends Component {
 class ItemForm extends Component {
   render() {
     return (<div className={"modal-form"}>
+      <h5>How many items do you wish to donate?</h5>
       <form>
         {/*<input type={"number"} onChange={this.props.handleChange}/>*/}
         <TextField label="Quantity" type="number" onChange={this.props.handleChange}/>

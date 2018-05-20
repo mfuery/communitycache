@@ -3,6 +3,7 @@ import { Switch, Route, Link } from 'react-router-dom'
 import PledgeView from "./pledgeView.jsx";
 import NeededView from "./neededView.jsx";
 import FulfilledView from "./fulfilledView.jsx";
+import MapContainer from "./map.jsx";
 import {AppBar} from "material-ui";
 import {Tab, Tabs} from "material-ui/Tabs/index";
 
@@ -24,6 +25,7 @@ export default class App extends Component {
           <Route exact path='/' component={PledgeView}/>
           <Route path='/needed' component={NeededView}/>
           <Route path='/fulfilled' component={FulfilledView}/>
+          <Route path='/map' component={MapContainer}/>
         </Switch>
       </div>
     );
