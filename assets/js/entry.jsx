@@ -44,8 +44,11 @@ $.ajaxSetup({
 const font = "'Questrial', sans-serif";
 
 const muiTheme = getMuiTheme({
+    typography: {
+        fontSize: 20,
+    },
+    fontFamily: font,
     palette: {
-        fontFamily: font,
         primary1Color: "#1457a5",
         primary2Color: "#a5009d",
     },

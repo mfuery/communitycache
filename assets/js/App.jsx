@@ -16,7 +16,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <AppBar iconElementLeft={logo} title={"Nationwide Angels"} zDepth={0}>
+        <AppBar iconElementLeft={logo} title={"Community Cache"} zDepth={0}>
             <logo/>
         </AppBar>
         <Tabs>

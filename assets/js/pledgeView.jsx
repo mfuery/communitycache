@@ -167,12 +167,12 @@ class Item extends Component {
                 <h1>{this.props.item.item.name}</h1>
                 <div><strong>{this.props.item.description}</strong></div>
                 <div><p><strong>Nationwide Catastrophe Cache</strong><br/>{this.props.item.depot.name}<br/>
-                    <Link to={{pathname: '/map', state: {lat, lng, item}}}>{this.props.item.depot.address}<br />{this.props.item.depot.city}<br />{this.props.item.depot.state}</Link></p></div>
+                    <Link to={{pathname: '/map', state: {lat, lng, item}}}>{this.props.item.depot.address}<br />{this.props.item.depot.city}, {this.props.item.depot.state}</Link></p></div>
             </div>
             <div className={"bottom-nav"}>
                 <div className={"item-buttons-container"}>
-                    <RaisedButton labelColor={'#ffffff'} backgroundColor={'#72006e'} onClick={this.props.rejectAction} className="item-button" label={"I don't have that"}/>
-                    <RaisedButton backgroundColor={'#a5009d'} labelColor={'#ffffff'} onClick={this.props.approveForm} className="item-button" label={"I can donate this!"}/>
+                    <RaisedButton labelColor={'#ffffff'} backgroundColor={'#72006e'} onClick={this.props.rejectAction} className="item-button" label={"I don't have that"} labelStyle={{fontSize: 22, textTransform: 'none'}}/>
+                    <RaisedButton backgroundColor={'#a5009d'} labelColor={'#ffffff'} onClick={this.props.approveForm} className="item-button" label={"I can donate this!"} labelStyle={{fontSize: 22, textTransform: 'none'}}/>
                 </div>
             </div>
         </div>);

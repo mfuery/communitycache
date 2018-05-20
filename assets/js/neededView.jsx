@@ -20,13 +20,15 @@ export default class NeededView extends Component {
   cards() {
     if (this.state.list.length > 0) {
       return this.state.list.map(x => {
-        return (<Card key={x.name} containerStyle={{paddingLeft: 5, paddingRight: 5, marginBottom: 10}}>
+        return (<Card key={x.name} containerStyle={{paddingLeft: 5, paddingRight: 5, marginBottom: 10, fontSize:22}}>
           <CardHeader
             title={x.item.name}
             subtitle={`${x.quantity_fulfilled_so_far}/${x.quantity} units fulfilled`}
-            avatar={x.item.image}>
+            avatar={x.item.image}
+          titleStyle={{fontSize: 22}}
+          subtitleStyle={{fontSize:19}}>
           </CardHeader>
-          <CardText>{x.description}</CardText>
+          <CardText style={{fontSize: 18}}>{x.description}</CardText>
           <LinearProgressDeterminate
             completed={x.progress}
           />
