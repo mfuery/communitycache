@@ -10,22 +10,16 @@ class ItemSerializer(serializers.ModelSerializer):
 
 
 class PledgeSerializer(serializers.ModelSerializer):
-    need_set = serializers.PrimaryKeyRelatedField(source='need', read_only=True)
-    userprofile_set = serializers.PrimaryKeyRelatedField(source='userprofile', read_only=True)
-
-    def create(self, validated_data):
-        return Pledge.objects.create(**validated_data)
 
     class Meta:
         model = Pledge
-        depth = 2
+        # depth = 2
         fields = '__all__'
 
 
 class NeedSerializer(serializers.ModelSerializer):
     pledges = PledgeSerializer(read_only=True, many=True)
     item = ItemSerializer('item')
-
     class Meta:
         model = Need
         fields = '__all__'
