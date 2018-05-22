@@ -1,0 +1,215 @@
+[
+{
+  "model": "core.pledge",
+  "pk": 1,
+  "fields": {
+    "quantity": 20,
+    "user_profile": 1,
+    "need": 1
+  }
+},
+{
+  "model": "core.pledge",
+  "pk": 2,
+  "fields": {
+    "quantity": 10,
+    "user_profile": 1,
+    "need": 1
+  }
+},
+{
+  "model": "core.pledge",
+  "pk": 3,
+  "fields": {
+    "quantity": 100,
+    "user_profile": 2,
+    "need": 3
+  }
+},
+{
+  "model": "core.item",
+  "pk": 1,
+  "fields": {
+    "name": "1 Gallon Water Bottle",
+    "cost": "1.00",
+    "image": "water.jpg"
+  }
+},
+{
+  "model": "core.item",
+  "pk": 2,
+  "fields": {
+    "name": "SPAM",
+    "cost": "2.00",
+    "image": "spam.jpg"
+  }
+},
+{
+  "model": "core.item",
+  "pk": 3,
+  "fields": {
+    "name": "Toilet Paper (12-pack)",
+    "cost": "15.00",
+    "image": "toiletpapel.jpg"
+  }
+},
+{
+  "model": "core.item",
+  "pk": 4,
+  "fields": {
+    "name": "Tshirt",
+    "cost": "8.00",
+    "image": "tshirt.jpg"
+  }
+},
+{
+  "model": "core.depot",
+  "pk": 1,
+  "fields": {
+    "name": "Plug and Play Sunnyvale",
+    "lat": "37.371065",
+    "lon": "-122.026808",
+    "address": "123 Main St Sunnyvale, CA"
+  }
+},
+{
+  "model": "core.depot",
+  "pk": 2,
+  "fields": {
+    "name": "Target",
+    "lat": "37.378979",
+    "lon": "-122.045146",
+    "address": "123 Main St Sunnyvale, CA"
+  }
+},
+{
+  "model": "core.depot",
+  "pk": 3,
+  "fields": {
+    "name": "Sunnyvale Preschool",
+    "lat": "37.377750",
+    "lon": "-122.048330",
+    "address": "123 Main St Sunnyvale, CA"
+  }
+},
+{
+  "model": "core.need",
+  "pk": 1,
+  "fields": {
+    "created": "2018-05-20T07:06:46.865",
+    "item": 1,
+    "is_fulfilled": false,
+    "fulfilled_at": null,
+    "quantity": 50,
+    "depot": 1,
+    "description": "Earthquake response 2018"
+  }
+},
+{
+  "model": "core.need",
+  "pk": 2,
+  "fields": {
+    "created": "2018-05-20T07:06:46.865",
+    "item": 2,
+    "is_fulfilled": false,
+    "fulfilled_at": null,
+    "quantity": 100,
+    "depot": 1,
+    "description": "Earthquake response 2018"
+  }
+},
+{
+  "model": "core.need",
+  "pk": 3,
+  "fields": {
+    "created": "2018-05-20T07:06:46.865",
+    "item": 4,
+    "is_fulfilled": true,
+    "fulfilled_at": "2018-05-20T00:10:06.762",
+    "quantity": 100,
+    "depot": 1,
+    "description": "Need Large Tshirts - any color or style."
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$100000$JhHADIOQ78GD$6GHxSOn5d/sHY2N/U9/dzb12z40Rs1u/Q7nq8hw2AJs=",
+    "last_login": "2018-05-20T03:27:36.661",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@admin.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2018-05-19T23:53:02.137",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$100000$krOnsDkW91Ai$zIeF8aCWfuWOSq/2ZtkkO+n1AiWUhVZK6q2bbgNlLhM=",
+    "last_login": "2018-05-20T04:06:45",
+    "is_superuser": false,
+    "username": "michael",
+    "first_name": "Michael",
+    "last_name": "Fuery",
+    "email": "mfuery@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2018-05-20T04:06:06",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$100000$u0MrcnnlbSmb$bWanT5j/GZrYQy9pS1rXNND2dXj5jRd4lveSMsaiMdY=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "stephen",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2018-05-20T04:06:56.526",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.userprofile",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "lat": "-30.000000",
+    "lon": "30.000000"
+  }
+},
+{
+  "model": "core.userprofile",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "lat": "0.000000",
+    "lon": "0.000000"
+  }
+},
+{
+  "model": "core.userprofile",
+  "pk": 3,
+  "fields": {
+    "user": 3,
+    "lat": "0.000000",
+    "lon": "0.000000"
+  }
+}
+]

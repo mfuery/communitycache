@@ -112,3 +112,6 @@ venv.bak/
 .idea
 .DS_Store
 node_modules
+static/
+webpack-stats*
+.env.json

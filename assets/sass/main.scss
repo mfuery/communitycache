@@ -1,27 +1,93 @@
 @import 'app';
+@import url('https://fonts.googleapis.com/css?family=Questrial');
 
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Questrial', sans-serif;
+  font-size: 20px;
 }
 
-img {
-  height: 300px;
+.item-img {
+  height: 350px;
+  overflow: hidden;
 }
 
 .image-container {
-    height: 300px;
+  height: 350px;
 }
 
-.navbar {
+nav {
+  ul {
     display: flex;
     flex-direction: row;
-    width: 100%;
+    list-style-type: none;
+    li {
+
+    }
+  }
 }
 
 .nav-item {
+  flex: 1;
+  height: 35px;
+}
+
+.halfsize {
+  width: 50px;
+  height: 50px;
+}
+.img-holder {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+}
+
+.img-holder img {
+  top: 0;
+  left: 0;
+  width: auto;
+  max-width: 150px;
+  height: auto;
+  max-height: 100px;
+}
+
+.pledge-container {
+  text-align: center;
+}
+
+.bottom-button {
+  background-color: #a5009d;
+  cursor: pointer;
+  color: white;
+  height: 100%;
+  text-align: center;
+  line-height: 3;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.bottom-nav {
+  width: 100%;
+  position: absolute;
+  border-top: #ccc;
+  bottom: 0;
+}
+
+.item-buttons-container {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: row;
+  height: 45px;
+  .item-button {
     flex: 1;
-    border: 1px solid black;
-    height: 35px;
+  }
+}
+
+.pledge-text{
+  text-align: left;
+  margin: 1em 2em;
+
 }
