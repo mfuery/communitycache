@@ -25,7 +25,9 @@ export default class FulfilledView extends Component {
           <CardHeader
             title={x.item.name}
             subtitle={`${x.quantity_fulfilled_so_far}/${x.quantity} units fulfilled on ${moment(x.fulfilled_at).format('MM/DD/YYYY')}`}
-            avatar={x.item.image}>
+            avatar={x.item.image}
+            titleStyle={{fontSize: 22}}
+            subtitleStyle={{fontSize:19}}>
           </CardHeader>
           <CardText>{x.description}</CardText>
           <LinearProgressDeterminate
