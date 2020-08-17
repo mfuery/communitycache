@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "/Users/michaelf/.virtualenvs/communitycache/bin/python",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
+}
