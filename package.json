@@ -18,6 +18,9 @@
   },
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": "10.x"
+  },
   "devDependencies": {
     "aws-sdk": "^2.243.1",
     "babel-core": "^6.26.0",
