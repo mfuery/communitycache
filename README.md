@@ -1,5 +1,11 @@
 Community Cache
 ------------
+Crowdsourced Disaster Relief Supply Chain
+
+Web App matching neighbors in need of supplies during times of disaster relief and rebuilding.
+
+Nationwide Hackathon 2018 - Silicon Valley
+
 
 # Dev Setup
 
